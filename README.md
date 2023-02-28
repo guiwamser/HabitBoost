@@ -1,6 +1,6 @@
 # ⏳ Gestão de tempo - HabitBoost.py ⏳
 
-Se trata de um site para gerenciar da melhor forma o tempo do usuário.
+Trata-se de um site para gerenciar da melhor forma o tempo do usuário.
 
 Criando hábitos e tarefas diários ou semanais. 
 
