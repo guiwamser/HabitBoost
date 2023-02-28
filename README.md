@@ -1,4 +1,4 @@
-# ⏳ Gestão de tempo - habit tracker ⏳
+# ⏳ Gestão de tempo - HabitBoost.py ⏳
 
 Se trata de um site para gerenciar tempo do usuário,
 
