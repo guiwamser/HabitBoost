@@ -1,14 +1,14 @@
 # ⏳ Gestão de tempo - HabitBoost.py ⏳
 
-Se trata de um site para gerenciar tempo do usuário,
+Se trata de um site para gerenciar o tempo do usuário.
 
-criando hábitos diários ou semanais e tarefas diárias. 
+Criando hábitos diários ou semanais e tarefas diárias. 
 
-Formulário de criação de tarefas deverá ter data e hora. 
+Criação de novas tarefas com data e horário. 
 
-Notificações das tarefas adicionadas enviadas por e-mail na data e hora cadastrada para o usuário. 
+Notificações por e-mail na data e horário dos eventos criados pelo usuário. 
 
-Checklist de tarefas concluídas para ambas as funcionalidades.
+Checklist dos eventos concluídos para ambas as funcionalidades.
 
 ## Autores
 
