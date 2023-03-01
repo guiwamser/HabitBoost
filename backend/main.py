@@ -4,6 +4,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+@app.get('/')
+def home():
+    return "Minha API está no ar"
 
 app.add_middleware(
     CORSMiddleware,

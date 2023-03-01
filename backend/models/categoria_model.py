@@ -1,10 +1,8 @@
 from typing import Optional
 from sqlmodel import Field, SQLModel 
 
-class TarefaModel(SQLModel, table=True):
-    __tablename__: str = 'tarefas'
+class CategoriaModel(SQLModel, table=True):
+    __tablename__: str = 'categorias'
 
     id: Optional[int] = Field(default=None, primary_key=True)
     descricao: str
-    data: str
-    hora: str
