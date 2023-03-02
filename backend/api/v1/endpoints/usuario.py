@@ -11,6 +11,7 @@ from sqlmodel import select
 
 from models.usuario_model import Usuario
 from core.deps import get_session
+from models.requests.usuario_create import UserCreateRequest
 
 from sqlmodel.sql.expression import Select, SelectOfScalar
 
@@ -44,9 +45,8 @@ async def get_usuario(usuario_id : int , db: AsyncSession = Depends(get_session)
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=Usuario)
-async def post_usuario(usuario: Usuario, db : AsyncSession = Depends(get_session)):
-
-    novo_usuario = Usuario(nome=usuario.nome, fone= usuario.fone, email=usuario.email, senha=usuario.senha)
+async def post_usuario(create_request: UserCreateRequest,db : AsyncSession = Depends(get_session)):
+    novo_usuario = Usuario(nome=create_request.nome, fone= create_request.fone, email=create_request.email, hash_password=create_request.hash_password)
 
     db.add(novo_usuario)
     await db.commit()
@@ -71,7 +71,7 @@ async def put_usuario(usuario_id : int, usuario: Usuario , db: AsyncSession = De
             usuario_up.nome = usuario.nome
             usuario_up.fone = usuario.fone
             usuario_up.email = usuario.email
-            usuario_up.senha = usuario.senha
+            usuario_up.password = usuario.password
 
             await session.commit()
 
