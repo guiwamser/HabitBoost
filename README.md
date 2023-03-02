@@ -1,5 +1,5 @@
 # ⏳ Gestão de tempo - HabitBoost.py ⏳
-[logo](https://github.com/guiwamser/HabitBoost/blob/main/habit.boost.png)
+![logo](https://raw.githubusercontent.com/guiwamser/HabitBoost/main/habit.boost.png)
 
 Trata-se de um site para gerenciar da melhor forma o tempo do usuário.
 
