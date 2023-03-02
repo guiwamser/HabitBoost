@@ -1,12 +1,13 @@
 from fastapi import FastAPI
 
+from core.config import settings
+
+from api.v1.api import api_router
+
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
-
-@app.get('/')
-def home():
-    return "Minha API está no ar"
+app = FastAPI(title="API HABIT BOOST")
+app.include_router(api_router, prefix=settings.API_STR)
 
 app.add_middleware(
     CORSMiddleware,

@@ -1,9 +1,10 @@
 from sqlmodel import SQLModel
 from core.database import engine
 
-from models.models import User, Categoria, Tarefa
-#from models.tarefa_model import TarefaModel
-#from models.user_model import UserModel
+#from models.models import Usuario, Categoria, Tarefa
+from models.tarefa_model import Tarefa
+from models.usuario_model import Usuario
+from models.categoria_model import Categoria
 
 print('executando documento')
 async def create_tables() -> None:

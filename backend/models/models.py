@@ -1,8 +1,8 @@
 from typing import Optional
 from sqlmodel import Field, SQLModel, Relationship
 
-class User(SQLModel, table=True):
-    __tablename__: str = 'user'
+class Userario(SQLModel, table=True):
+    __tablename__: str = 'usuario'
 
     id: Optional[int] = Field(default=None, primary_key=True)
     nome: str
@@ -27,6 +27,7 @@ class Tarefa(SQLModel, table=True):
     descricao: str
     data: str
     hora: str
+    
     
     user_id: Optional[int] = Field(default=None, foreign_key="user.id")
     categoria_id: Optional[int] = Field(default=None, foreign_key="categoria.id")
