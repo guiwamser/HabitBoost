@@ -1,10 +1,9 @@
 from pydantic import BaseModel, validator
 from typing import Optional
-from datetime import date
+from datetime import date, time, datetime
 
 
 class HabitBase(BaseModel):
-    id: int
     descricao: str
     data: date
     hora: int

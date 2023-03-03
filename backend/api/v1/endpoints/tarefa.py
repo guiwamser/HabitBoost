@@ -45,17 +45,13 @@ async def get_tarefa(tarefa_id : int , db: AsyncSession = Depends(get_session)):
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=Tarefa)
-async def post_tarefa(create_request: HabitBase,db : AsyncSession = Depends(get_session)):
-    novo_tarefa = Tarefa(id=create_request.id, descricao= create_request.descricao, data=create_request.data, hora=create_request.hora, check=create_request.check)
+async def post_tarefa(tarefa: Tarefa, db : AsyncSession = Depends(get_session)):
+    nova_tarefa = Tarefa(descricao=tarefa.descricao, data=tarefa.data, hora=tarefa.hora, check=tarefa.check)
 
-    db.add(novo_tarefa)
+    db.add(nova_tarefa)
     await db.commit()
 
-    return novo_tarefa
-
-
-
-
+    return nova_tarefa
 
 
 @router.put('/{tarefa_id}', status_code=status.HTTP_202_ACCEPTED, response_model=Tarefa)
