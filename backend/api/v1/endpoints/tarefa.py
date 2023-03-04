@@ -15,10 +15,18 @@ from models.requests.tarefa_create import HabitBase
 
 from sqlmodel.sql.expression import Select, SelectOfScalar
 
+import smtplib
+from email.mime.text import MIMEText
+
+from fastapi.middleware.cors import CORSMiddleware
+
 SelectOfScalar.inherit_cache = True
 Select.inherit_cache = True
 
 router = APIRouter()
+
+
+
 
 @router.get('/', response_model=List[Tarefa])
 async def get_tarefas(db: AsyncSession = Depends(get_session)):
@@ -51,7 +59,36 @@ async def post_tarefa(tarefa: Tarefa, db : AsyncSession = Depends(get_session)):
     db.add(nova_tarefa)
     await db.commit()
 
+    """""
+    try:
+            sender = "habitboostpy@gmail.com"
+            recipient = "vanderlaus@hotmail.com"
+            subject = "New task created"
+            body = "A new task has been created with the following details:\n\n"
+
+            message = MIMEText(body)
+            message["Subject"] = subject
+            message["From"] = sender
+            message["To"] = recipient
+
+            smtp_server = "smtp.gmail.com"
+            smtp_port = 587
+            smtp_username = "habitboostpy@gmail.com"
+            smtp_password = "HabitBoost!py"
+
+            smtp_connection = smtplib.SMTP(smtp_server, smtp_port)
+            smtp_connection.starttls()
+            smtp_connection.login(smtp_username, smtp_password)
+            smtp_connection.sendmail(sender, [recipient], message.as_string())
+            smtp_connection.quit()
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Failed to send notification email")
+
+    return {"message": "Task created successfully"}"""
+
     return nova_tarefa
+
 
 
 @router.put('/{tarefa_id}', status_code=status.HTTP_202_ACCEPTED, response_model=Tarefa)
