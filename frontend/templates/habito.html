@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Habito</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                offset: 0;
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            body {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #64416a;
+            }
+
+            h1 {
+                color: #f1e2e2;
+                font-size: 2.5em;
+                font-weight: 300;
+                text-align: center;
+                line-height: 1;
+            }
+
+            h2 {
+                color: #f1e2e2;
+                font-size: 1.75em;
+                font-weight: 300;
+                text-align: center;
+                line-height: 1;
+            }
+
+            #main-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                width: 500px;
+                height: 500px;
+            }
+
+            #dias-da-semana-section, #hora-section {
+                padding: 1em;
+                width: 100%;
+                text-align: center;
+            }
+
+            #timer-section, #vezes-section {
+                text-align: center;
+                padding: 1em 0;
+                flex-basis: 50%;
+            }
+
+            #botao-adc-section, #botao-submit-section {
+                text-align: center;
+                flex-basis: 100%;
+            }
+
+            #dias-da-semana-section input {
+                display: none !important;
+            }
+
+            #dias-da-semana-section input[type="checkbox"] + label {
+                display: inline-block;
+                background-color: #aa6fb4;
+                color: #f1e2e2;
+                height: 40px;
+                width: 40px;
+                margin: 1em 2px 0.5em 2px;
+                line-height: 40px;
+                text-align: center;
+                cursor: pointer;
+                border-radius: 6px;
+                font-size: 1.75em;
+            }
+
+            #dias-da-semana-section input[type="checkbox"]:checked + label {
+                background: #f1e2e2;
+                color: #64416a;
+            }
+
+            .tempo {
+                display: block;
+                margin: auto;
+                background-color: #aa6fb4;
+                color: #f1e2e2;
+                border: 0;
+                padding: 5px;
+                font-size: 1.5em;
+                text-align: center;
+                border-radius: 10px;
+                margin-bottom: 2px;
+            }
+
+            .tempo::-webkit-calendar-picker-indicator {
+                background: none;
+                display: none;
+            }
+
+            #vezes-no-dia {
+                background-color: #aa6fb4;
+                color: #f1e2e2;
+                border: 0;
+                padding: 6px;
+                font-size: 1.5em;
+                text-align: center;
+                border-radius: 10px;
+                width: 50px;
+            }
+
+            #vezes-no-dia::-webkit-inner-spin-button {
+                all: unset;
+            }
+
+            #vezes-section input[type="button"] {
+                background-color: #64416a;
+                color: #f1e2e2;
+                border: 0;
+                padding: 0.5px 5px;
+                font-size: 2em;
+                cursor: pointer;
+            }
+
+            #adc-hora {
+                width: 35px;
+                background-color: #aa6fb4;
+                color: #f1e2e2;
+                font-size: 1.1em;
+                font-weight: 800;
+                padding: 0.25em 0.5em;
+                border-radius: 15px;
+                border: 0
+            }
+
+            #submit-criar {
+                background-color: #aa6fb4;
+                color: #f1e2e2;
+                padding: 0em 2em;
+                font-size: 2em;
+                border-radius: 30px;
+                border: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Boa escolha!</h1>
+            <h2>Defina sua meta inicial:</h2>
+        </header>
+        <main>
+            <form action="#" method="post">
+                <div id="main-container">
+                    <section id="dias-da-semana-section">
+                        <input type="checkbox" id="domingo" class="dias-da-semana" />
+                        <label for="domingo">D</label>
+                        <input type="checkbox" id="segunda" class="dias-da-semana" />
+                        <label for="segunda">S</label>
+                        <input type="checkbox" id="terca" class="dias-da-semana" />
+                        <label for="terca">T</label>
+                        <input type="checkbox" id="quarta" class="dias-da-semana" />
+                        <label for="quarta">Q</label>
+                        <input type="checkbox" id="quinta" class="dias-da-semana" />
+                        <label for="quinta">Q</label>
+                        <input type="checkbox" id="sexta" class="dias-da-semana" />
+                        <label for="sexta">S</label>
+                        <input type="checkbox" id="sabado" class="dias-da-semana" />
+                        <label for="sabado">S</label>
+                    </section>
+                    <section id="timer-section">
+                        <h2>Timer</h2>
+                        <input type="time" name="timer" id="timer" class="tempo" step="1" value="00:00:00" />
+                    </section>
+                    <section id="vezes-section">
+                        <h2>Vezes no dia</h2>
+                        <input type="button" id="btn-menos-vezes" name="menos-vezes" value="-" />
+                        <input type="number" name="vezes-no-dia" id="vezes-no-dia" min="0" value="0" />
+                        <input type="button" id="btn-mais-vezes" name="mais-vezes" class="botao" value="+" />
+                    </section>
+                    <section id="hora-section">
+                        <h2>Hora</h2>
+                        <input type="hidden" id="total_adc" value="1" />
+                        <input type="time" name="hora1" class="tempo" value="00:00" />
+                        <input type="button" name="adc-hora" id="adc-hora" value="+" />
+                    </section>
+                    <section id="botao-submit-section">
+                        <input type="submit" id="submit-criar" value="Criar" />
+                    </section>
+                </div>
+            </form>
+        </main>
+    </body>
+
+    <script>
+        const btn_menos = document.getElementById("btn-menos-vezes");
+        const btn_mais = document.getElementById("btn-mais-vezes");
+        const input_number = document.getElementById("vezes-no-dia");
+        const btn_adc_hora = document.getElementById("adc-hora");
+        const hidden_total = document.getElementById("total_adc");
+        const section_hora = document.getElementById("botao-adc-section");
+
+        btn_menos.addEventListener("click", function () {
+            valor_atual = parseInt(input_number.value);
+            if (valor_atual - 1 >= 0) {
+                input_number.value = valor_atual - 1;
+            }
+        });
+        btn_mais.addEventListener("click", function () {
+            valor_atual = parseInt(input_number.value);
+            if (valor_atual + 1 <= 96) {
+                input_number.value = valor_atual + 1;
+            }
+        });
+        btn_adc_hora.addEventListener("click", function () {
+            let prox_valor = parseInt(hidden_total.value) + 1;
+            let novo_input = document.createElement("input");
+            novo_input.setAttribute("type", "time");
+            novo_input.setAttribute("name", `hora${prox_valor}`);
+            novo_input.setAttribute("class", "tempo");
+            novo_input.setAttribute("value", "00:00");
+            btn_adc_hora.parentNode.insertBefore(novo_input,btn_adc_hora)
+            hidden_total.value = prox_valor;
+        });
+    </script>
+</html>
