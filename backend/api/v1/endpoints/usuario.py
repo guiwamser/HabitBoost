@@ -50,8 +50,8 @@ async def get_usuario(usuario_id : int , db: AsyncSession = Depends(get_session)
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=UsuarioResponse)
-async def post_usuario(usuario: Usuario, db : AsyncSession = Depends(get_session)):
-    novo_usuario = Usuario(nome=usuario.nome, fone=usuario.fone, email=usuario.email, hash_password=usuario.hash_password)
+async def post_usuario(usuario : Usuario,db : AsyncSession = Depends(get_session)):
+    novo_usuario = Usuario(nome=usuario.nome, email=usuario.email, hash_password=usuario.hash_password)
 
     db.add(novo_usuario)
     await db.commit()
@@ -76,7 +76,7 @@ async def put_usuario(usuario_id : int, usuario: Usuario , db: AsyncSession = De
             usuario_up.nome = usuario.nome
             usuario_up.fone = usuario.fone
             usuario_up.email = usuario.email
-            usuario_up.hash_password = usuario.hash_password
+            usuario_up.password = usuario.password
 
             await session.commit()
 

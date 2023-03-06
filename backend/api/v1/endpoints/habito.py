@@ -35,10 +35,10 @@ async def get_habitos(db: AsyncSession = Depends(get_session)):
 
         return habitos
 
-@router.get('/{habito_id}', status_code=status.HTTP_200_OK, response_model=Habito)
-async def get_habito(habito_id : int , db: AsyncSession = Depends(get_session)):
+@router.get('/{habito_descricao}', status_code=status.HTTP_200_OK, response_model=Habito)
+async def get_habito(habito_descricao : str , db: AsyncSession = Depends(get_session)):
     async with db as session:
-        query = select(Habito).filter(Habito.id == habito_id)
+        query = select(Habito).filter(Habito.descricao == habito_descricao)
         result= await session.execute(query)
         habito : Habito = result.scalar_one_or_none()
 
@@ -87,17 +87,16 @@ async def post_habito(habito: Habito, db : AsyncSession = Depends(get_session)):
 
 
 
-@router.put('/{habito_id}', status_code=status.HTTP_202_ACCEPTED, response_model=Habito)
-async def put_habito(habito_id : int, habito: Habito , db: AsyncSession = Depends(get_session)):
+@router.put('/{habito_descricao}', status_code=status.HTTP_202_ACCEPTED, response_model=Habito)
+async def put_habito(habito_descricao : str, habito: Habito , db: AsyncSession = Depends(get_session)):
     async with db as session:
-        query = select(Habito).filter(Habito.id == habito_id)
+        query = select(Habito).filter(Habito.descricao == habito_descricao)
 
         result= await session.execute(query)
 
         habito_up : Habito = result.scalar_one_or_none()
 
         if habito_up:
-            habito_up.id = habito.id
             habito_up.descricao = habito.descricao
             habito_up.dia_semana = habito.dia_semana
             habito_up.hora = habito.hora
@@ -111,10 +110,10 @@ async def put_habito(habito_id : int, habito: Habito , db: AsyncSession = Depend
         else:
             raise HTTPException(detail='Habito não encontrado', status_code=status.HTTP_404_NOT_FOUND)
         
-@router.delete('/{habito_id}', status_code=status.HTTP_204_NO_CONTENT)
-async def delete_habito(habito_id : int , db: AsyncSession = Depends(get_session)):
+@router.delete('/{habito_descricao}', status_code=status.HTTP_204_NO_CONTENT)
+async def delete_habito(habito_descricao : int , db: AsyncSession = Depends(get_session)):
     async with db as session:
-        query = select(Habito).filter(Habito.id == habito_id)
+        query = select(Habito).filter(Habito.descricao == habito_descricao)
 
         result= await session.execute(query)
 
