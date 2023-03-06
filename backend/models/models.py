@@ -1,33 +1,24 @@
 from typing import Optional
 from sqlmodel import Field, SQLModel, Relationship
 
-class Userario(SQLModel, table=True):
+class Usuario(SQLModel, table=True):
     __tablename__: str = 'usuario'
 
     id: Optional[int] = Field(default=None, primary_key=True)
     nome: str
-    fone: int
-    email: int
-    senha: str
+    email: str = Field(unique=True)
+    hash_password: str
     
-    tarefa: list["tarefa"] = Relationship(back_populates="user")
-
-class Categoria(SQLModel, table=True):
-    __tablename__: str = 'categoria'
-
-    id: Optional[int] = Field(default=None, primary_key=True)
-    descricao: str
-
-    tarefa: list["tarefa"] = Relationship(back_populates="categoria")
+    #habito: list["habito"] = Relationship(back_populates="usuario")
         
-class Tarefa(SQLModel, table=True):
-    __tablename__: str = 'tarefa'
+class Habito(SQLModel, table=True):
+    __tablename__: str = 'habito'
 
-    id: Optional[int] = Field(default=None, primary_key=True)
-    descricao: str
-    data: str
+    descricao: str = Field(default=None, primary_key=True)
+    dia_semana: str
     hora: str
+    timer: str
+    vezes: int
+    check: bool = Field(default=False)
     
-    
-    user_id: Optional[int] = Field(default=None, foreign_key="user.id")
-    categoria_id: Optional[int] = Field(default=None, foreign_key="categoria.id")
+    usuario_id: int = Field(default=None, foreign_key="usuario.id")

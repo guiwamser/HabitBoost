@@ -4,14 +4,19 @@ from fastapi import APIRouter
 from fastapi import status
 from fastapi import Depends
 from fastapi import HTTPException
+from fastapi import Form
 from fastapi import Response
+
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import select
 
-from models.usuario_model import Usuario
+from models.models import Usuario
 from core.deps import get_session
 from models.requests.usuario_create import UserCreateRequest
+from models.responses.usuario_response import UsuarioResponse
+from core.security import criar_token_jwt, verify_password
+from api.v1.endpoints.depends.usuariodeps import get_usuario_logado
 
 from sqlmodel.sql.expression import Select, SelectOfScalar
 
@@ -20,7 +25,7 @@ Select.inherit_cache = True
 
 router = APIRouter()
 
-@router.get('/', response_model=List[Usuario])
+@router.get('/', response_model=List[UsuarioResponse])
 async def get_usuarios(db: AsyncSession = Depends(get_session)):
     async with db as session:
         query = select(Usuario)
@@ -31,7 +36,7 @@ async def get_usuarios(db: AsyncSession = Depends(get_session)):
 
         return usuarios
 
-@router.get('/{usuario_id}', status_code=status.HTTP_200_OK, response_model=Usuario)
+@router.get('/{usuario_id}', status_code=status.HTTP_200_OK, response_model=UsuarioResponse)
 async def get_usuario(usuario_id : int , db: AsyncSession = Depends(get_session)):
     async with db as session:
         query = select(Usuario).filter(Usuario.id == usuario_id)
@@ -44,9 +49,9 @@ async def get_usuario(usuario_id : int , db: AsyncSession = Depends(get_session)
             raise HTTPException(detail='Usuário não encontrado', status_code=status.HTTP_404_NOT_FOUND)
 
 
-@router.post('/', status_code=status.HTTP_201_CREATED, response_model=Usuario)
-async def post_usuario(create_request: UserCreateRequest,db : AsyncSession = Depends(get_session)):
-    novo_usuario = Usuario(nome=create_request.nome, fone= create_request.fone, email=create_request.email, hash_password=create_request.hash_password)
+@router.post('/', status_code=status.HTTP_201_CREATED, response_model=UsuarioResponse)
+async def post_usuario(usuario : Usuario,db : AsyncSession = Depends(get_session)):
+    novo_usuario = Usuario(nome=usuario.nome, email=usuario.email, hash_password=usuario.hash_password)
 
     db.add(novo_usuario)
     await db.commit()
@@ -58,7 +63,7 @@ async def post_usuario(create_request: UserCreateRequest,db : AsyncSession = Dep
 
 
 
-@router.put('/{usuario_id}', status_code=status.HTTP_202_ACCEPTED, response_model=Usuario)
+@router.put('/{usuario_id}', status_code=status.HTTP_202_ACCEPTED, response_model=UsuarioResponse)
 async def put_usuario(usuario_id : int, usuario: Usuario , db: AsyncSession = Depends(get_session)):
     async with db as session:
         query = select(Usuario).filter(Usuario.id == usuario_id)
@@ -96,3 +101,19 @@ async def delete_usuario(usuario_id : int , db: AsyncSession = Depends(get_sessi
         
         else:
             raise HTTPException(detail='Usuário não encontrado', status_code=status.HTTP_404_NOT_FOUND)
+        
+@router.post('/login')
+async def login(usuario_email: str = Form(...), password: str = Form(...), db: AsyncSession = Depends(get_session)):
+    async with db as session:
+        query = select(Usuario).filter(Usuario.email == usuario_email)
+        result= await session.execute(query)
+        user : Usuario = result.scalar_one_or_none()
+        
+        if not user or not verify_password(password, user.hash_password):
+            raise HTTPException(status_code=403, 
+                                detail="Email ou nome do usuário incorretos"
+                                )
+        return {
+            "access_token": criar_token_jwt(user.id),
+            "token_type": "bearer",
+        }

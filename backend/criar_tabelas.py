@@ -1,8 +1,8 @@
 from sqlmodel import SQLModel
 from core.database import engine
 
-#from models.models import Usuario, Categoria, Tarefa
-import models.import_models
+#from models.models import Usuario, Habito
+import models.models
 
 
 print('executando documento')
