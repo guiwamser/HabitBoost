@@ -51,7 +51,7 @@ async def get_habito(habito_id : int , db: AsyncSession = Depends(get_session)):
 
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=Habito)
 async def post_habito(habito: Habito, db : AsyncSession = Depends(get_session)):
-    novo_habito = Habito(descricao=habito.descricao, dia_semana=habito.dia_semana, hora=habito.hora, check=habito.check)
+    novo_habito = Habito(descricao=habito.descricao, dia_semana=habito.dia_semana, hora=habito.hora, check=habito.check, usuario_id=habito.usuario_id)
 
     db.add(novo_habito)
     await db.commit()
