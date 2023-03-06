@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            offset: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+        }
+
+        body {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #64416A;
+        }
+
+        header {
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #F1E2E2;
+            font-size: 2.5em;
+            font-weight: 300;
+            text-align: center;
+            line-height: 1;
+        }
+
+        h2 {
+            color: #F1E2E2;
+            font-size: 1.75em;
+            font-weight: 300;
+            text-align: center;
+            line-height: 1;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            margin: auto;
+            flex-wrap: wrap;
+            width: 500px;
+        }
+
+        main > a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #F1E2E2;
+            background-color: #aa6fb4;
+            font-size: 1.25em;
+            font-weight: 200;
+            width: 200px;
+            height: 200px;
+            margin: 20px;
+            padding: 1.8em;
+            text-decoration: none;
+            border-radius: 15px;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        main > a:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+            transition: transform .2s, border 1s, color .5s;
+        }
+
+        main > a > span {
+            text-shadow: 0px 3px 7px rgba(0, 0, 0, 0.75);
+        }
+
+        footer {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Veja como você pode começar!</h1>
+        <h2>Com base na sua resposta:</h2>
+    </header>
+    <main>
+        <a href="./habito/id=1" id="item1"><span>Prioridades do Dia</span></a>
+        <a href="./habito/id=2" id="item2"><span>Ouvir Podcast</span></a>
+        <a href="./habito/id=3" id="item3"><span>Exercitar a Criatividade</span></a>
+        <a href="./habito/id=4" id="item4"><span>Ler 20 Páginas</span></a>
+    </main>
+    <footer>
+        <h2>Escolha um hábito para começar!</h2>
+    </footer>
+</body>
+</html>
