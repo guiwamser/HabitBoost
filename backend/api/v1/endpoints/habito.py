@@ -50,7 +50,7 @@ async def get_habito(habito_id : int , db: AsyncSession = Depends(get_session)):
 
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=Habito)
 async def post_habito(habito: Habito, db : AsyncSession = Depends(get_session)):
-    novo_habito = Habito(descricao=habito.descricao, dia_semana=habito.dia_semana, hora=habito.hora, check=habito.check, usuario_id=habito.usuario_id)
+    novo_habito = Habito(descricao=habito.descricao, dia_semana=habito.dia_semana, hora=habito.hora, timer=habito.timer, vezes=habito.vezes, check=habito.check, usuario_id=habito.usuario_id)
 
     db.add(novo_habito)
     await db.commit()
@@ -101,6 +101,8 @@ async def put_habito(habito_id : int, habito: Habito , db: AsyncSession = Depend
             habito_up.descricao = habito.descricao
             habito_up.dia_semana = habito.dia_semana
             habito_up.hora = habito.hora
+            habito_up.timer = habito.timer
+            habito_up.vezes = habito.vezes
             habito_up.check = habito.check
 
             await session.commit()

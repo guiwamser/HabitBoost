@@ -76,7 +76,7 @@ async def put_usuario(usuario_id : int, usuario: Usuario , db: AsyncSession = De
             usuario_up.nome = usuario.nome
             usuario_up.fone = usuario.fone
             usuario_up.email = usuario.email
-            usuario_up.password = usuario.password
+            usuario_up.hash_password = usuario.hash_password
 
             await session.commit()
 
