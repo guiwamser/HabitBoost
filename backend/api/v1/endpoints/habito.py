@@ -11,7 +11,6 @@ from sqlmodel import select
 
 from models.models import Habito
 from core.deps import get_session
-from models.requests.tarefa_create import HabitBase
 
 from sqlmodel.sql.expression import Select, SelectOfScalar
 
