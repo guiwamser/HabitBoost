@@ -19,6 +19,6 @@ class Habito(SQLModel, table=True):
     descricao: str
     dia_semana: str
     hora: str
-    check: bool = Field(default=None)
+    check: bool = Field(default=False)
     
     usuario_id: int = Field(default=None, foreign_key="usuario.id")
