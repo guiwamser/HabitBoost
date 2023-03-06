@@ -9,7 +9,7 @@ from fastapi import Response
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import select
 
-from models.usuario_model import Usuario
+from models.models import Usuario
 from core.deps import get_session
 from models.requests.usuario_create import UserCreateRequest
 
