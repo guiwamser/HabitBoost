@@ -28,7 +28,7 @@ class Habito(SQLModel, table=True):
 
     id: Optional[int] = Field(default=None, primary_key=True)
     descricao: str
-    dia_semana: int
+    dia_semana: List[DiaSemana]
     hora: str
     timer: str
     vezes: int
@@ -39,5 +39,55 @@ class Habito(SQLModel, table=True):
     usuario: Optional[Usuario] = Relationship(back_populates="habitos")
 
 
-
+'''
 # Acima as Models..
+# Abaixo os testes..
+
+# Cria o Habito .
+novoHabito = Habito(
+    descricao="Correr",
+    dia_semana=[DiaSemana.segunda, DiaSemana.quarta],
+    hora="6:00 am",
+    timer="30 min",
+    vezes=3,
+    check=True,
+)
+
+# Cria usuario
+novoUsuario = Usuario(
+    id=1,
+    nome="Thiago",
+    email="teste",
+    hash_password="teste",
+    habitos=[novoHabito]
+)
+
+# Vincula o id do usuario ao novoHabito
+novoHabito.usuario_id = novoUsuario.id
+
+## Aqui estao as impressões
+
+# Aqui imprime o usuario inteiro
+print(novoUsuario)
+print()
+# Aqui imprime o objeto inteiro
+print(novoHabito)
+print()
+
+# Pegando apenas os habitos vinculados ao usuario 1
+for usuarioHabito in novoUsuario.habitos:
+    print("Descrição do Habito: " + usuarioHabito.descricao)
+    for dia in usuarioHabito.dia_semana:
+        print("Indice do Dia na Lista " + str(list(DiaSemana).index(dia)))
+        print(dia.value)
+
+print()
+# Imprimindo apenas os dias da semana
+for dia in novoHabito.dia_semana:
+    print(dia.value)
+
+print()
+# Imprimindo apenas os indices dos dias (De 0 a 6)
+for dia in novoHabito.dia_semana:
+    print(list(DiaSemana).index(dia))
+'''
