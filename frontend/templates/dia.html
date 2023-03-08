@@ -1,118 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-NNH9DrJnrggV20v8ZuJ7VlqxwLRLp7VnBca8WScpJPhnEaX9UjM6UHf6womcGlnJQ2DW+kaKmejxgJzFZfArXQ==" crossorigin="anonymous" />
-
-    <title>Hoje</title>
-</head>
-<body>
-    
-    <style>
-
+	<title>Hoje</title>
+	<style type="text/css">
 		body {
-            background-color: rgb(100, 65, 106);
+			background-color: rgb(118, 60, 118);
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			color: aliceblue;
+		}
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+		}
+		.date {
+			font-size: 2em;
+			text-align: center;
+			margin-bottom: 1em;
+		}
+		.greeting {
+			font-size: 2em;
+			text-align: center;
+			margin-bottom: 2em;
+		}
+		.info {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			margin-bottom: 2em;
+		}
+		.info > * {
+			margin-right: 1em;
+		}
+		.info input[type="text"] {
+			padding: 0.5em;
+			border-radius: 0.5em;
+			border: none;
+			box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+			color: rgb(87, 81, 87);
+			font-size: 1.2em;
+			font-weight: bold;
+			text-align: center;
+			width: 200px;
+			outline: none;
+		}
+		.info button {
+			padding: 0.5em;
+			border-radius: 0.5em;
+			border: none;
+			box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+			color: aliceblue;
+			background-color: rgb(118, 60, 118);
+			font-size: 1.2em;
+			font-weight: bold;
+			outline: none;
+			cursor: pointer;
+		}
+		.info button:hover {
+			background-color: rgb(211, 160, 211);
 		}
 
-        .form {
-            position: inherit;
-            width: 287px;
-            height: 35px;
-            left: 249px;
-            top: 341px;
-
-        }
-
-        .opcoes {
-            color: grey;
-            position: inherit;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            margin: 20px;
-        }
-
         button {
-            margin: 8px;
-            padding: 10px 10px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            color: rgb(62, 60, 60);
-            background-color: gainsboro;
+            background-color: rgb(162, 110, 162);
+            font-size: 2em;
+            padding: 0.2em;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            color: aliceblue;
+            border-radius: 0.5em;
+			border:rgb(232, 197, 232);
             cursor: pointer;
         }
 
-
-        .editar {  /* define a cor de fundo do botão de editar */
-            background-color: rgb(170, 111, 180);
-        }
-        .editar:hover {  /* define a cor de fundo quando o mouse está em cima do botão */
-            background-color: aliceblue;
-        }
-
-        .excluir {
-            background-color: rgb(170, 111, 180);
-        }
-        .excluir:hover {
-            background-color: aliceblue;
-        }
-
-        .fazer {
-            background-color: rgb(170, 111, 180);
-            
-        }
-       .fazer:hover {
-            background-color: aliceblue;
-        }
-
-      
-    </style>
-
-
+	</style>
 </head>
-
 <body>
-    <form>
-        <div>
-            <button class="atividades">Opção A</button>
-            <button class="atividades">Opção B</button>
-            <button class="atividades">Opção C</button>
-            <button class="">Opção D</button>
+	<div class="container">
+        <div class="header">
+          <div class="date">
+            <script>
+              document.write(new Date().toLocaleDateString());
+            </script>
+          </div>
+          <button> + </button>
         </div>
-    </form>
-    
-    
-    <div class="opcoes"> 
-        
-        <button class="editar"><i class="fas fa-edit"></i>l</button>
-        <button class="excluir"><i class="fas fa-trash"></i>X</button>
-        <button class="fazer"><i class="fas fa-check"></i>OK</button>
-    </div>
 
-    <div class="opcoes">
-        
-        <button class="editar">Editar</button>
-        <button class="excluir">Excluir</button>
-        <button class="fazer">Feito</button>
-    </div>
+        <div class="greeting">O que temos para hoje?</div>
+        <div class="info">
+          <div>
+            <span>Hora</span>
+            <span id="clock"></span>
+            <script>
+              function updateClock() {
+                var now = new Date();
+                var hours = now.getHours();
+                var minutes = now.getMinutes();
+                var seconds = now.getSeconds();
+                hours = hours < 10 ? '0' + hours : hours;
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+                document.getElementById('clock').innerHTML = hours + ':' + minutes 
+                setTimeout(updateClock, 1000);
+              }
+              updateClock();
+            </script>
+          </div>
 
-    <div class="opcoes">
-        
-        <button class="editar">Editar</button>
-        <button class="excluir">Excluir</button>
-        <button class="fazer">Feito</button>
-    </div>
+          <div>
+            <input type="text" name="activity" placeholder="Lavar a Louca">
 
-    <div class="opcoes">
-        <button class="editar">Editar</button>
-        <button class="excluir">Excluir</button>
-        <button class="fazer">Feito</button>
-    </div>
+          </div>
 
-
-</body>
-</html>
+          <div>
+            <button>Ed</button>
+            <a href="opcoes.html"></a>
+            <button>X</button>
+            <a href=""></a>
+            <button>OK</button>
+            
+          </div>
+        </div>
+      </div>
