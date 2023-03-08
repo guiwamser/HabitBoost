@@ -101,19 +101,3 @@ async def delete_usuario(usuario_id : int , db: AsyncSession = Depends(get_sessi
         
         else:
             raise HTTPException(detail='Usuário não encontrado', status_code=status.HTTP_404_NOT_FOUND)
-        
-@router.post('/login')
-async def login(usuario_email: str = Form(...), password: str = Form(...), db: AsyncSession = Depends(get_session)):
-    async with db as session:
-        query = select(Usuario).filter(Usuario.email == usuario_email)
-        result= await session.execute(query)
-        user : Usuario = result.scalar_one_or_none()
-        
-        if not user or not verify_password(password, user.hash_password):
-            raise HTTPException(status_code=403, 
-                                detail="Email ou nome do usuário incorretos"
-                                )
-        return {
-            "access_token": criar_token_jwt(user.id),
-            "token_type": "bearer",
-        }
