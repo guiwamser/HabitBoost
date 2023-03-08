@@ -51,9 +51,11 @@ async def get_habito(habito_descricao : str , db: AsyncSession = Depends(get_ses
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=Habito)
 async def post_habito(habito: Habito, db : AsyncSession = Depends(get_session)):
     novo_habito = Habito(descricao=habito.descricao, dia_semana=habito.dia_semana, hora=habito.hora, timer=habito.timer, vezes=habito.vezes, check=habito.check, usuario_id=habito.usuario_id)
-
+    
     db.add(novo_habito)
     await db.commit()
+    db.refresh(novo_habito)
+    return novo_habito
 
     """""
     try:
@@ -83,7 +85,7 @@ async def post_habito(habito: Habito, db : AsyncSession = Depends(get_session)):
 
     return {"message": "Task created successfully"}"""
 
-    return novo_habito
+
 
 
 
