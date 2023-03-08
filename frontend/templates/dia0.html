@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Hoje</title>
+        <style type="text/css">
+            body {
+                background-color: rgb(118, 60, 118);
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                color: aliceblue;
+            }
+            .container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+				
+            }
+            .header {
+                display: flex;
+                align-items: stretch;
+                justify-content: center;
+				width: 500px;
+                margin-bottom: 2em;
+            }
+            .date {
+                font-size: 2.5em;
+                text-align: center;
+                background-color: #aa6fb4;
+                padding: 0.01em 0.2em;
+                border-radius: 7px;
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            }
+            .week-date {
+                font-size: 2.4em;
+                text-align: center;
+                padding: 0.1em 0.2em;
+                border-radius: 7px;
+                margin: 0 0.5em;
+            }
+            .btn-adc {
+                background-color: #aa6fb4;
+                font-size: 2em;
+                padding: 0.1em 0.2em;
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+                color: aliceblue;
+                border-radius: 5px;
+                border: rgb(232, 197, 232);
+                cursor: pointer;
+                height: 50px;
+                width: 50px;
+                align-self: center;
+            }
+            .greeting {
+                font-size: 2em;
+                text-align: center;
+                margin-bottom: 2em;
+            }
+            .info {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 2em;
+            }
+            .info > * {
+                margin-right: 1em;
+            }
+            .info input[type="text"] {
+                padding: 0.5em;
+                border-radius: 0.5em;
+                border: none;
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+                color: rgb(87, 81, 87);
+                font-size: 1.2em;
+                font-weight: bold;
+                text-align: center;
+                width: 200px;
+                outline: none;
+				height: 30px;
+            }
+            .info button {
+                padding: 0.5em;
+                border-radius: 0.5em;
+                border: none;
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+                color: aliceblue;
+                background-color: rgb(118, 60, 118);
+                font-size: 1.2em;
+                font-weight: bold;
+                outline: none;
+                cursor: pointer;
+            }
+            .info button:hover {
+                background-color: rgb(211, 160, 211);
+            }
+
+            button {
+                background-color: rgb(162, 110, 162);
+                font-size: 2em;
+                padding: 0.1em;
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+                color: aliceblue;
+                border-radius: 0.5em;
+                border: rgb(232, 197, 232);
+                cursor: pointer;
+                height: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="date">
+                    <script>
+                        const meses = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+                        const data = new Date();
+                        const dia = data.getDate() < 10 ? "0" + data.getDate() : data.getDate();
+                        const mes = meses[data.getMonth()];
+                        document.write(`${dia}.${mes}`);
+                    </script>
+                </div>
+                <div class="week-date">
+                    <script>
+                        const semana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+                        document.write(semana[new Date().getDay()]);
+                    </script>
+                </div>
+                <button class="btn-adc">+</button>
+                <a href="nova_atividade.html"class="create-account-btn">E</a>
+            </div>
+            <div class="greeting">O que temos para hoje?</div>
+            <div class="info">
+                <div>
+                    <span>Hora</span>
+                    <span id="clock"></span>
+                    <script>
+                        function updateClock() {
+                            var now = new Date();
+                            var hours = now.getHours();
+                            var minutes = now.getMinutes();
+                            var seconds = now.getSeconds();
+                            hours = hours < 10 ? "0" + hours : hours;
+                            minutes = minutes < 10 ? "0" + minutes : minutes;
+                            seconds = seconds < 10 ? "0" + seconds : seconds;
+                            document.getElementById("clock").innerHTML = hours + ":" + minutes;
+                            setTimeout(updateClock, 1000);
+                        }
+                        updateClock();
+                    </script>
+                </div>
+
+                <div>
+                    <input type="text" name="activity" placeholder="Atualizar Calendario" />
+                </div>
+
+                <div>
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                        </svg>
+                    </button>
+                    <a href=""></a>
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                        </svg>
+                    </button>
+                    <a href=""></a>
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
