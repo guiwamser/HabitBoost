@@ -70,17 +70,18 @@
 		<div class="login-box">
 			<h2>Entrar</h2> 
             
-			<form>
+			<form id="login-form" method="get">
 				<input type="text" id="email" name="email" placeholder="E-mail" style="text-align: center;"><br>
 				<input type="password" id="senha" name="senha" placeholder="Senha" style="text-align: center;"><br>
 				<input type="checkbox" id="lembrar" name="lembrar" value="lembrar">
 				<label for="lembrar">Lembre de mim</label><br>
-				<input type="submit" value="Entrar"> 
-			</form><br>			
+				<input type="submit" value="Entrar" onclick="login(document.getElementById('email').value, document.getElementById('senha').value)"> 
+			  </form>
 
             <a href="cadastro.html"class="create-account-btn">Criar conta</a>
             
 		</div>
 	</div>
+	<script src="file:///C:/Users/Vander/Documents/codes/HabitBoost/frontend/scripts/usuario.js"></script>
 </body>
 </html>

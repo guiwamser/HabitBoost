@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html Lang="pt">
 <head>
-	<title>Cadastro</title>
 	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cadastro</title>
 	
 	<style>
 		
@@ -68,23 +70,38 @@
     </style>
 </head>
 
-    <body>
-        <div class="container">
-            <div class="login-box">
-                <h2>Criar Conta</h2>                
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h2>Criar Conta</h2>                
 
-                <form>
-					<input type="text" id="nome" name="nome" placeholder="Nome completo" style="text-align: center;"><br>  
-					<input type="text" id="email" name="email" placeholder="E-mail" style="text-align: center;"><br>
-					<input type="password" id="senha" name="senha" placeholder="Senha" style="text-align: center;"><br>
-				</form> <br>
-				
-				
-                    <input type="submit" value="Criar">
-                </form>
+			<form id="form-usuarios" method="post" onsubmit="save()">
+			
+			<input type="text" name="nome" id="nome" placeholder="Nome completo" style="text-align: center;"><br>  
+			<input type="text" name="email" id="email" placeholder="E-mail" style="text-align: center;"><br>
+			<input type="password" name="senha" id="senha" placeholder="Senha" style="text-align: center;"><br>
+					
+            <input type="submit" value="Salvar">
 
-            </div>
-        </div>
+            </form>
+		</div>
+    </div>
 
-    </body>
-    </html>
+	<h5 id="mensagem"></h5>
+
+	<script src="file:///C:/Users/Vander/Documents/codes/HabitBoost/frontend/scripts/usuario.js"></script>
+
+	<script>
+		document.getElementById('form-usuarios').addEventListener('submit', e => {
+			e.preventDefault()
+		})
+		// pegar parametros url no caso de editar
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		const id = urlParams.get('id');
+		if(id != null){
+			load_usuario(id);
+		}
+	</script>
+</body>
+</html>

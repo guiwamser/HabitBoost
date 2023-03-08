@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Hoje</title>
 	<style type="text/css">
 		body {
@@ -80,9 +83,7 @@
 	<div class="container">
         <div class="header">
           <div class="date">
-            <script>
-              document.write(new Date().toLocaleDateString());
-            </script>
+            <p><span id="data-hoje"></span></p>
           </div>
           <button> + </button>
         </div>
@@ -90,26 +91,19 @@
         <div class="greeting">O que temos para hoje?</div>
         <div class="info">
           <div>
-            <span>Hora</span>
-            <span id="clock"></span>
-            <script>
-              function updateClock() {
-                var now = new Date();
-                var hours = now.getHours();
-                var minutes = now.getMinutes();
-                var seconds = now.getSeconds();
-                hours = hours < 10 ? '0' + hours : hours;
-                minutes = minutes < 10 ? '0' + minutes : minutes;
-                seconds = seconds < 10 ? '0' + seconds : seconds;
-                document.getElementById('clock').innerHTML = hours + ':' + minutes 
-                setTimeout(updateClock, 1000);
-              }
-              updateClock();
-            </script>
-          </div>
-
           <div>
-            <input type="text" name="activity" placeholder="Lavar a Louca">
+            <table class="table table-striped">
+				<thead>
+					<th>Hora</th>
+					<th>Descrição</th>
+				</thead>
+				<tbody id="tbody-habitos">
+		
+					
+				</tbody>
+			</table>
+			
+			<input type="text" name="activity" placeholder="Lavar a Louca">
 
           </div>
 
@@ -123,3 +117,22 @@
           </div>
         </div>
       </div>
+
+	<script src="file:///C:/Users/Vander/Documents/codes/HabitBoost/frontend/scripts/habito.js"></script>
+
+	<script>
+		const hoje = new Date();
+		const diaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+		const mesNome = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+		const dia = hoje.getDate();
+		const mes = mesNome[hoje.getMonth()];
+		const ano = hoje.getFullYear();
+		const diaDaSemana = diaSemana[hoje.getDay()];
+	  
+		const dataHoje = document.getElementById("data-hoje");
+		dataHoje.textContent = `${diaDaSemana}, ${dia} de ${mes}`;
+	  </script>
+	
+
+</body>
+</html>

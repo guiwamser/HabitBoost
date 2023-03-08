@@ -25,7 +25,7 @@ Select.inherit_cache = True
 
 router = APIRouter()
 
-@router.get('/', response_model=List[UsuarioResponse])
+@router.get('/', response_model=List[Usuario])
 async def get_usuarios(db: AsyncSession = Depends(get_session)):
     async with db as session:
         query = select(Usuario)
@@ -36,7 +36,7 @@ async def get_usuarios(db: AsyncSession = Depends(get_session)):
 
         return usuarios
 
-@router.get('/{usuario_id}', status_code=status.HTTP_200_OK, response_model=UsuarioResponse)
+@router.get('/{usuario_id}', status_code=status.HTTP_200_OK, response_model=Usuario)
 async def get_usuario(usuario_id : int , db: AsyncSession = Depends(get_session)):
     async with db as session:
         query = select(Usuario).filter(Usuario.id == usuario_id)
@@ -49,9 +49,9 @@ async def get_usuario(usuario_id : int , db: AsyncSession = Depends(get_session)
             raise HTTPException(detail='Usuário não encontrado', status_code=status.HTTP_404_NOT_FOUND)
 
 
-@router.post('/', status_code=status.HTTP_201_CREATED, response_model=UsuarioResponse)
+@router.post('/', status_code=status.HTTP_201_CREATED, response_model=Usuario)
 async def post_usuario(usuario : Usuario,db : AsyncSession = Depends(get_session)):
-    novo_usuario = Usuario(nome=usuario.nome, email=usuario.email, hash_password=usuario.hash_password)
+    novo_usuario = Usuario(nome=usuario.nome, email=usuario.email, senha=usuario.senha)
 
     db.add(novo_usuario)
     await db.commit()
@@ -63,7 +63,7 @@ async def post_usuario(usuario : Usuario,db : AsyncSession = Depends(get_session
 
 
 
-@router.put('/{usuario_id}', status_code=status.HTTP_202_ACCEPTED, response_model=UsuarioResponse)
+@router.put('/{usuario_id}', status_code=status.HTTP_202_ACCEPTED, response_model=Usuario)
 async def put_usuario(usuario_id : int, usuario: Usuario , db: AsyncSession = Depends(get_session)):
     async with db as session:
         query = select(Usuario).filter(Usuario.id == usuario_id)
@@ -76,7 +76,7 @@ async def put_usuario(usuario_id : int, usuario: Usuario , db: AsyncSession = De
             usuario_up.nome = usuario.nome
             usuario_up.fone = usuario.fone
             usuario_up.email = usuario.email
-            usuario_up.password = usuario.password
+            usuario_up.senha = usuario.senha
 
             await session.commit()
 

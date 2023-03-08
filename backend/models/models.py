@@ -3,6 +3,7 @@ from typing import Optional, List
 from sqlmodel import Field, SQLModel, Relationship
 from sqlmodel import Session
 
+'''
 # Ele cria o dia da semana na lista de 0 a 6
 class DiaSemana(str, Enum):
     segunda = "segunda"
@@ -12,6 +13,7 @@ class DiaSemana(str, Enum):
     sexta = "sexta"
     sabado = "sabado"
     domingo = "domingo"
+'''
 
 class Usuario(SQLModel, table=True):
     __tablename__: str = 'usuario'
@@ -19,7 +21,7 @@ class Usuario(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     nome: str
     email: str = Field(unique=True)
-    hash_password: str
+    senha: str
     
     habitos: List["Habito"] = Relationship(back_populates="usuario")
         
@@ -28,7 +30,7 @@ class Habito(SQLModel, table=True):
 
     id: Optional[int] = Field(default=None, primary_key=True)
     descricao: str
-    dia_semana: List[DiaSemana]
+    dia_semana: str
     hora: str
     timer: str
     vezes: int
@@ -89,5 +91,4 @@ for dia in novoHabito.dia_semana:
 print()
 # Imprimindo apenas os indices dos dias (De 0 a 6)
 for dia in novoHabito.dia_semana:
-    print(list(DiaSemana).index(dia))
-'''
+    print(list(DiaSemana).index(dia))'''

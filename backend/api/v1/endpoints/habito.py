@@ -9,7 +9,7 @@ from fastapi import Response
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import select
 
-from models.models import Habito
+from models.models import Habito,Usuario
 from core.deps import get_session
 
 from sqlmodel.sql.expression import Select, SelectOfScalar
@@ -46,7 +46,18 @@ async def get_habito(habito_descricao : str , db: AsyncSession = Depends(get_ses
             return habito
         else:
             raise HTTPException(detail='Usuário não encontrado', status_code=status.HTTP_404_NOT_FOUND)
+        
+@router.get('/{usuario_habito}', status_code=status.HTTP_200_OK, response_model=Habito)
+async def get_habito(usuario_habito : str , db: AsyncSession = Depends(get_session)):
+    async with db as session:
+        query = select(Habito).filter(Habito.usuario_id ==usuario_habito)
+        result= await session.execute(query)
+        habito : Habito = result.scalar_one_or_none()
 
+        if habito:
+            return habito
+        else:
+            raise HTTPException(detail='Usuário não encontrado', status_code=status.HTTP_404_NOT_FOUND)
 
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=Habito)
 async def post_habito(habito: Habito, db : AsyncSession = Depends(get_session)):
